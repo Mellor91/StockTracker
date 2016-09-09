@@ -17,14 +17,28 @@ public class StockTracker
     
     public static void main(String[] args) 
     {
-        PhysicalStockItem objPhysicalStockItem = new PhysicalStockItem("physical Stock", 100);
-        ServiceStockItem objServiceStockItem = new ServiceStockItem("Winter");
+        testStockItemType();
+    }
+    
+    public static void testStockItemType()
+    {
+        StockItem objTestItem1 = new ServiceStockItem("Starcraft Manual");
+        StockItem objTestItem2 = new PhysicalStockItem("Halo 3", 100);
+        StockItem objTestItem3 = new ServiceStockItem("Starcraft Manual");
+                
+        StockItem[] objects = {objTestItem1, objTestItem2, objTestItem3};
         
-        String strMessage = objPhysicalStockItem.getName() + " is in stock = " + objPhysicalStockItem.isInStock() + " quantity in stock = " + objPhysicalStockItem.getQuantityInStock();
-        System.out.println(strMessage);
-        
-        strMessage = objServiceStockItem.getName() + " is in stock = " + objServiceStockItem.isInStock() + " quantity in stock = " + objServiceStockItem.getQuantityInStock();
-        System.out.println(strMessage);
+        for(StockItem obj : objects)
+        {
+            if(obj.getItemType() == StockType.PHYSICALITEM)
+            {
+                System.out.println("StockItem is Physical");
+            }
+            else
+            {
+                System.out.println("StockItem is **NOT** Physical");
+            }
+        }
     }
     
 }
