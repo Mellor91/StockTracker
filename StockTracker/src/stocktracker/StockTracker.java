@@ -30,14 +30,8 @@ public class StockTracker
         
         for(StockItem obj : objects)
         {
-            if(obj.getItemType() == StockType.PHYSICALITEM)
-            {
-                System.out.println("StockItem is Physical");
-            }
-            else
-            {
-                System.out.println("StockItem is **NOT** Physical");
-            }
+            System.out.println("Stock item type is = " + obj.getItemType().toString().toLowerCase());
+            
         }
     }
     

@@ -5,21 +5,24 @@
  */
 package stocktracker.stockdatamodel;
 
-
+import java.util.ArrayList;
+import utilities.IObserver;
+import utilities.ISubject;
 /**
  *
  * @author Mellor
  */
-public abstract class StockItem
+public abstract class StockItem implements ISubject
 {
     protected String name = "UNKNOWN";
     protected Integer quantityInStock = 0;
     protected Double sellingPrice = 1000000.00;
     protected Double costPrice = 1000000.00;
+    private ArrayList<IObserver> observers = null;
     
     public StockItem()
     {
-        
+       
     }
     
     public StockItem(String name)
@@ -46,6 +49,7 @@ public abstract class StockItem
         if(name != null && !name.isEmpty())
         {
             this.name = name;
+            notifyObservers();
         }
     }
 
@@ -59,6 +63,7 @@ public abstract class StockItem
         if(quantityInStock != null && quantityInStock >= 0)
         {
             this.quantityInStock = quanbtityInStock;
+            notifyObservers();
         }
     }
 
@@ -72,6 +77,7 @@ public abstract class StockItem
         if(sellingPrice >= 0 && sellingPrice != null && sellingPrice > this.sellingPrice)
         {
             this.sellingPrice = sellingPrice;
+            notifyObservers();
         }
     }
 
@@ -85,6 +91,7 @@ public abstract class StockItem
         if(costPrice >= 0 && costPrice != null)
         {
             this.costPrice = costPrice;        
+            notifyObservers();
         }
     }
         
@@ -97,5 +104,37 @@ public abstract class StockItem
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public Boolean registerObserver(IObserver o)
+    {
+        Boolean blnAdded = false;
+        
+        if(o != null)
+        {
+            if(this.observers == null)this.observers = new ArrayList<>();
+        }
+        blnAdded = this.observers.add(o);
+        System.out.println("this obbserrvers added = " + this.observers.add(o));
+        return blnAdded;
+    }
+
+    @Override
+    public Boolean removeObserver(IObserver o)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notifyObservers()
+    {
+        if(this.observers != null && this.observers.size() > 0)
+        {
+            for (IObserver currentObserver : this.observers)
+            {
+                currentObserver.update();
+            }
+        }
     }
 }
