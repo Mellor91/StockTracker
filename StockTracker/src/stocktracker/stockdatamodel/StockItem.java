@@ -116,14 +116,20 @@ public abstract class StockItem implements ISubject
             if(this.observers == null)this.observers = new ArrayList<>();
         }
         blnAdded = this.observers.add(o);
-        System.out.println("this obbserrvers added = " + this.observers.add(o));
         return blnAdded;
     }
 
     @Override
     public Boolean removeObserver(IObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Boolean blnRemoved = false;
+        if(this.observers == null) return false;
+        
+        if(o != null && this.observers != null && this.observers.size() > 0)
+        {
+            blnRemoved = this.observers.remove(o);
+        }
+        return blnRemoved;
     }
 
     @Override
